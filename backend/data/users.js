@@ -17,7 +17,7 @@ const users = [
     {
         name: 'Iktear uddin emon',
         email: 'iktearuddinemon@gmail.com',
-        universityId: '173-35-2252',
+        universityId: '173-35-2259',
         password: bcrypt.hashSync('abc123',15),
     },
 ]

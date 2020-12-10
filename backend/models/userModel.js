@@ -25,12 +25,7 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    isStudent: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isTeacher: {
+    isModerator: {
       type: Boolean,
       required: true,
       default: false,

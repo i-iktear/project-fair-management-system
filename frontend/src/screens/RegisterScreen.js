@@ -40,20 +40,37 @@ const RegisterScreen = ({ location, history }) => {
     <Container>
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <h1>Sign Up</h1>
+          <center>
+            <h1>
+              Sign Up <i className="fas fa-user-plus"> </i>
+            </h1>
+          </center>
+
           {message && <Message variant="danger">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col} controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="universityId">
+                <Form.Label>University ID</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your University ID"
+                  value={universityId}
+                  onChange={(e) => setUniversityId(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+            </Form.Row>
 
             <Form.Group controlId="email">
               <Form.Label>Email Address</Form.Label>
@@ -64,38 +81,29 @@ const RegisterScreen = ({ location, history }) => {
                 onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col} controlId="password">
+                <Form.Label>password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-            <Form.Group controlId="universityId">
-              <Form.Label>University ID</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your University ID"
-                value={universityId}
-                onChange={(e) => setUniversityId(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+              <Form.Group as={Col} controlId="confirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Re type your password"
+                  value={confirmpassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+            </Form.Row>
 
-            <Form.Group controlId="password">
-              <Form.Label>password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Re type your password"
-                value={confirmpassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Button type="submit" variant="primary">
+            <Button type="submit" size="lg" block variant="primary">
               Register
             </Button>
           </Form>

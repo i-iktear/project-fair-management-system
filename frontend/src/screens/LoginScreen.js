@@ -32,9 +32,13 @@ const LoginScreen = ({ location, history }) => {
     <Container>
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <h1>Log in</h1>
+          <center>
+            <h1>
+              Log In <i className="fas fa-sign-in-alt"> </i>
+            </h1>
+          </center>
           {error && <Message variant="danger">{error}</Message>}
-          {loading && <Loader /> }
+          {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="email">
               <Form.Label>Email Address</Form.Label>
@@ -62,11 +66,11 @@ const LoginScreen = ({ location, history }) => {
           </Form>
           <Row className="py-3">
             <Col>
-              New Customer?
+              New To This Site?
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : "/register"}
               >
-                Register
+                {"    "} Register
               </Link>
             </Col>
           </Row>

@@ -1,16 +1,10 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Form,
-  FormControl,
-  Button,
-  Container,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../actions/userActions";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -23,34 +17,24 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-        <Container>
+    <header >
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect >
+        <Container > 
           <LinkContainer to="/">
-            <Navbar.Brand>PFMS</Navbar.Brand>
+            <Navbar.Brand><i>PFMS</i> </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
-              <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                />
-                <Button type="submit" variant="success">
-                  Search
-                </Button>
-              </Form>
-
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id={"username"}>
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>My Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to="/order">
+                  <LinkContainer to="/mysubmissions">
                     <NavDropdown.Item eventKey="4.1">
-                      My Projects
+                      My Submissions
                     </NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Divider />
@@ -61,20 +45,49 @@ const Header = () => {
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>
-                    <i className="fas fa-user fa-3x"></i>
+                    <i className="fas fa-user "></i> Login
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <LinkContainer to="/addproject">
-                <Nav.Link>
-                  <i class="fas fa-plus-circle fa-2x"></i>
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="adminmenu">
+                  <LinkContainer to="/admin/userlist">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/projecttlist">
+                    <NavDropdown.Item>Projects</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
+
+              {userInfo && userInfo.isModerator && (
+                <NavDropdown title="Moderator" id="moderatormenu">
+                  <LinkContainer to="/moderator/userlist">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/moderator/sessionlist">
+                    <NavDropdown.Item>Sessions</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/moderator/projectlist">
+                    <NavDropdown.Item>Project Fair Submissions</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
+
+              {userInfo && userInfo.isJudge && (
+                <NavDropdown title="Judge Panel" id="judgemenu">
+                  <LinkContainer to="/judge/projectlist">
+                    <NavDropdown.Item>Approved submissions</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+    
     </header>
+
   );
 };
 
